@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "docker-start": "clear && docker-compose up -d --build && docker logs --tail 1000 --follow symfonyAPI-app --details",
+        "docker-stop": "clear && docker-compose down",
+        "docker-terminal": "clear && docker exec -it symfonyAPI-app bash",
+        "docker-exec": "docker exec -it symfonyAPI-app bash",
+        "check-security": "clear && docker exec -it symfonyAPI-app sh -c \"symfony check:security\"",
+        "check-code": "clear && docker exec -it symfonyAPI-app bash -c \"./vendor/bin/phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src\""
+    }
+}

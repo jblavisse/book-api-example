@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+    api:
+        build:
+            context: ./API
+            dockerfile: ./docker/Dockerfile
+        restart: always
+        ports:
+            - 8100:8000
+        volumes:
+            - ./API/:/var/www/
+        depends_on:
+            - db
+
+    db:
+        container_name: database
+        image: mysql:latest
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: books
+        ports:
+            - 3306:3306
+        volumes:
+            - db-data:/var/lib/mysql
+
+
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin:latest
+        restart: always
+        ports:
+            - 8001:80
+        environment:
+            - PMA_HOST=db
+
+
+volumes:
+    db-data:
